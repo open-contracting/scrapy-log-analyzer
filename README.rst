@@ -1,6 +1,6 @@
 |PyPI Version| |Build Status| |Coverage Status| |Python Version|
 
-1-2 sentence description.
+Provides methods to analyze the quality of a Scrapy crawl.
 
 (If you are viewing this on GitHub, open the `full documentation <https://scrapy-log-analyzer.readthedocs.io/>`__ for additional details.)
 
