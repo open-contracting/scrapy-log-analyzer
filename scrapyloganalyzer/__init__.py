@@ -32,11 +32,12 @@ class ScrapyLogFile():
         """
         source_directory = os.path.join(logs_directory, source_id)
         if os.path.isdir(source_directory):
-            for entry in os.scandir(source_directory):
-                if entry.name.endswith('.log'):
-                    scrapy_log_file = ScrapyLogFile(entry.path)
-                    if scrapy_log_file.match(data_version):
-                        return scrapy_log_file
+            with os.scandir(source_directory) as it:
+                for entry in it:
+                    if entry.name.endswith('.log'):
+                        scrapy_log_file = ScrapyLogFile(entry.path)
+                        if scrapy_log_file.match(data_version):
+                            return scrapy_log_file
 
     def __init__(self, name):
         """
