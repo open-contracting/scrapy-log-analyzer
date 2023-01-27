@@ -14,7 +14,7 @@ SPIDER_ARGUMENTS_SEARCH_STRING = ' INFO: Spider arguments: '
 Common.SIGTERM_PATTERN = re.compile(r'^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?),' % DATETIME_PATTERN)
 
 
-class ScrapyLogFile():
+class ScrapyLogFile:
     """
     A representation of a Scrapy log file.
     """
