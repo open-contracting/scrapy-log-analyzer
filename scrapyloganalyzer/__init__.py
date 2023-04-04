@@ -8,10 +8,10 @@ from logparser import parse
 from logparser.common import DATETIME_PATTERN, Common
 
 # Kingfisher Collect logs an INFO message starting with "Spider arguments:".
-SPIDER_ARGUMENTS_SEARCH_STRING = ' INFO: Spider arguments: '
+SPIDER_ARGUMENTS_SEARCH_STRING = " INFO: Spider arguments: "
 
 # Hotfix: https://github.com/my8100/logparser/pull/19
-Common.SIGTERM_PATTERN = re.compile(r'^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?),' % DATETIME_PATTERN)
+Common.SIGTERM_PATTERN = re.compile(r"^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?)," % DATETIME_PATTERN)
 
 
 class ScrapyLogFile:
@@ -34,7 +34,7 @@ class ScrapyLogFile:
         if os.path.isdir(source_directory):
             with os.scandir(source_directory) as it:
                 for entry in it:
-                    if entry.name.endswith('.log'):
+                    if entry.name.endswith(".log"):
                         scrapy_log_file = ScrapyLogFile(entry.path)
                         if scrapy_log_file.match(data_version):
                             return scrapy_log_file
@@ -55,7 +55,7 @@ class ScrapyLogFile:
         """
         if os.path.isfile(self.name):
             os.remove(self.name)
-        summary = f'{self.name}.stats'
+        summary = f"{self.name}.stats"
         if os.path.isfile(summary):
             os.remove(summary)
 
@@ -91,12 +91,12 @@ class ScrapyLogFile:
         :returns: the crawl's start time
         :rtype: datetime.datetime
         """
-        crawl_time = self.spider_arguments.get('crawl_time')
+        crawl_time = self.spider_arguments.get("crawl_time")
         if crawl_time:
-            return datetime.datetime.strptime(crawl_time, '%Y-%m-%dT%H:%M:%S')
-        if 'start_time' in self.logparser['crawler_stats']:
-            return eval(self.logparser['crawler_stats']['start_time']).replace(microsecond=0)
-        return datetime.datetime.fromtimestamp(self.logparser['first_log_timestamp'])
+            return datetime.datetime.strptime(crawl_time, "%Y-%m-%dT%H:%M:%S")
+        if "start_time" in self.logparser["crawler_stats"]:
+            return eval(self.logparser["crawler_stats"]["start_time"]).replace(microsecond=0)
+        return datetime.datetime.fromtimestamp(self.logparser["first_log_timestamp"])
 
     def is_finished(self):
         """
@@ -108,7 +108,7 @@ class ScrapyLogFile:
         """
         # See https://kingfisher-collect.readthedocs.io/en/latest/logs.html#check-the-reason-for-closing-the-spider
         # logparser's `finish_reason` is "N/A" for an unclean shutdown, because crawl statistics aren't logged.
-        return self.logparser['finish_reason'] == 'finished'
+        return self.logparser["finish_reason"] == "finished"
 
     # Line-by-line processing
 
@@ -140,10 +140,19 @@ class ScrapyLogFile:
         :rtype: bool
         """
         # See https://kingfisher-collect.readthedocs.io/en/latest/spiders.html#spider-arguments
-        return not any(self.spider_arguments.get(arg) for arg in (
-            # 'year' not supported in new spiders.
-            'from_date', 'until_date', 'year', 'start_page', 'publisher', 'system', 'sample'
-        ))
+        return not any(
+            self.spider_arguments.get(arg)
+            for arg in (
+                # 'year' not supported in new spiders.
+                "from_date",
+                "until_date",
+                "year",
+                "start_page",
+                "publisher",
+                "system",
+                "sample",
+            )
+        )
 
     def _process_line_by_line(self):
         self._item_counts = defaultdict(int)
@@ -152,19 +161,19 @@ class ScrapyLogFile:
         buf = []
         with open(self.name) as f:
             for line in f:
-                if buf or line.startswith('{'):
+                if buf or line.startswith("{"):
                     buf.append(line.rstrip())
-                if buf and buf[-1].endswith('}'):
+                if buf and buf[-1].endswith("}"):
                     try:
                         # Scrapy logs items as dicts. FileError items, representing retrieval errors, are identified by
                         # an 'errors' key. FileError items use only simple types, so `ast.literal_eval` can be used.
-                        item = ast.literal_eval(''.join(buf))
-                        if 'errors' in item:
-                            self._item_counts['FileError'] += 1
-                        elif 'number' in item:
-                            self._item_counts['FileItem'] += 1
-                        elif 'data_type' in item:
-                            self._item_counts['File'] += 1
+                        item = ast.literal_eval("".join(buf))
+                        if "errors" in item:
+                            self._item_counts["FileError"] += 1
+                        elif "number" in item:
+                            self._item_counts["FileItem"] += 1
+                        elif "data_type" in item:
+                            self._item_counts["File"] += 1
                     except ValueError:
                         # Scrapy dumps stats as a dict, which uses `datetime.datetime` types that can't be parsed with
                         # `ast.literal_eval`.
@@ -175,7 +184,7 @@ class ScrapyLogFile:
                 if index > -1:
                     # `eval` is used, because the string can contain `datetime.date` and is written by trusted code in
                     # Kingfisher Collect. Otherwise, we can modify the string so that `ast.literal_eval` can be used.
-                    self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING):])
+                    self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])
 
     # Mixed processing
 
@@ -195,4 +204,4 @@ class ScrapyLogFile:
         :returns: an estimated lower bound of the true error rate
         :rtype: float
         """
-        return self.item_counts['FileError'] / (self.item_counts['File'] + self.item_counts['FileError'])
+        return self.item_counts["FileError"] / (self.item_counts["File"] + self.item_counts["FileError"])
