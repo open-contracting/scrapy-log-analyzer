@@ -22,7 +22,7 @@ class ScrapyLogFile:
     @classmethod
     def find(cls, logs_directory, source_id, data_version):
         """
-        Finds and returns the first matching log file for the given crawl.
+        Find and return the first matching log file for the given crawl.
 
         :param str logs_directory: Kingfisher Collect's project directory within Scrapyd's logs_dir directory
         :param str source_id: the spider's name
@@ -51,7 +51,7 @@ class ScrapyLogFile:
 
     def delete(self):
         """
-        Deletes the log file and any log summary ending in ``.stats``.
+        Delete the log file and any log summary ending in ``.stats``.
         """
         if os.path.isfile(self.name):
             os.remove(self.name)
@@ -85,8 +85,8 @@ class ScrapyLogFile:
     @property
     def crawl_time(self):
         """
-        Returns the ``crawl_time`` spider argument if set, or the ``start_time`` crawl statistic otherwise. If neither
-        is logged, returns the time of the first log message.
+        Return the ``crawl_time`` spider argument if set, or the ``start_time`` crawl statistic otherwise. If neither
+        is logged, return the time of the first log message.
 
         :returns: the crawl's start time
         :rtype: datetime.datetime
@@ -100,7 +100,7 @@ class ScrapyLogFile:
 
     def is_finished(self):
         """
-        Returns whether the log file contains a "Spider closed (finished)" log message or a ``finish_reason`` crawl
+        Return whether the log file contains a "Spider closed (finished)" log message or a ``finish_reason`` crawl
         statistic set to "finished".
 
         :returns: whether the crawl finished cleanly
@@ -191,7 +191,7 @@ class ScrapyLogFile:
     @property
     def error_rate(self):
         """
-        Returns an estimated lower bound of the true error rate.
+        Return an estimated lower bound of the true error rate.
 
         Kingfisher Collect is expected to yield at most one FileError item per request leading to a File item, so the
         true error rate can only be less than this estimated lower bound if Kingfisher Collect breaks this expectation.
