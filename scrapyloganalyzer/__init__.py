@@ -76,8 +76,10 @@ class ScrapyLogFile:
 
     def match(self, data_version):
         """
-        :returns: whether the crawl directory's name, parsed as a datetime, is less than 3 seconds after the log file's
-                  start time
+        Return whether the crawl directory's name, parsed as a datetime, is less than 3 seconds after the log file's
+        start time.
+
+        :returns: whether the crawl directory's name matches the log file's start time
         :rtype: bool
         """
         return 0 <= data_version.timestamp() - self.crawl_time.timestamp() < 3
@@ -136,7 +138,9 @@ class ScrapyLogFile:
 
     def is_complete(self):
         """
-        :returns: whether the crawl collected a subset of the dataset, according to the log file
+        Return whether the crawl collected a subset of the dataset, according to the log file.
+
+        :returns: whether the crawl collected a subset of the dataset
         :rtype: bool
         """
         # See https://kingfisher-collect.readthedocs.io/en/latest/spiders.html#spider-arguments
