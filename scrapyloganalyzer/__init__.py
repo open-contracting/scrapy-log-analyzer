@@ -143,10 +143,9 @@ class ScrapyLogFile:
         return not any(
             self.spider_arguments.get(arg)
             for arg in (
-                # 'year' not supported in new spiders.
                 "from_date",
                 "until_date",
-                "year",
+                "year",  # not supported in new spiders
                 "start_page",
                 "publisher",
                 "system",
