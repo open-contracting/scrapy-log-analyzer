@@ -6,8 +6,8 @@ Provides methods to analyze the quality of a Scrapy crawl.
 
 .. |PyPI Version| image:: https://img.shields.io/pypi/v/scrapyloganalyzer.svg
    :target: https://pypi.org/project/scrapyloganalyzer/
-.. |Build Status| image:: https://github.com/open-contracting/scrapy-log-analyzer/workflows/CI/badge.svg
-   :target: https://github.com/open-contracting/scrapy-log-analyzer/actions?query=workflow%3ACI
+.. |Build Status| image:: https://github.com/open-contracting/scrapy-log-analyzer/actions/workflows/ci.yml
+   :target: https://github.com/open-contracting//actions/workflows/ci.yml
 .. |Coverage Status| image:: https://coveralls.io/repos/github/open-contracting/scrapy-log-analyzer/badge.svg?branch=main
    :target: https://coveralls.io/github/open-contracting/scrapy-log-analyzer?branch=main
 .. |Python Version| image:: https://img.shields.io/pypi/pyversions/scrapyloganalyzer.svg
