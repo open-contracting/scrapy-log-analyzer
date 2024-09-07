@@ -2,13 +2,44 @@
 requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
-[tool.black]
+[project]
+name = "scrapyloganalyzer"
+version = "0.0.1"
+authors = [{name = "Open Contracting Partnership", email = "data@open-contracting.org"}]
+description = "Provides methods to analyze the quality of a Scrapy crawl."
+readme = "README.rst"
+license = {text = "BSD"}
+urls = {Homepage = "https://github.com/open-contracting/scrapy-log-analyzer"}
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "logparser",
+]
+
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+exclude = [
+    "tests",
+    "tests.*",
+]
+
+[tool.ruff]
 line-length = 119
+target-version = "py39"
 
-[tool.isort]
-profile = 'black'
-line_length = 119
-
-[tool.pydocstyle]
-match_dir = '(?!tests).*'
-ignore = 'D100,D104,D200,D203,D205,D212,D400,D415'
+[tool.ruff.lint]
+select = ["E", "C4", "F", "I", "W"]
