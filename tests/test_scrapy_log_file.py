@@ -10,7 +10,7 @@ message = "2020-01-02 03:04:05 [scrapy.utils.log] INFO message"
 
 
 @pytest.mark.parametrize(
-    "files, expected",
+    ("files", "expected"),
     [
         # Only match.
         (
@@ -93,7 +93,7 @@ def test_delete(filenames, tmpdir):
 
 
 @pytest.mark.parametrize(
-    "datetime, expected",
+    ("datetime", "expected"),
     [
         (datetime.datetime(2020, 9, 2, 5, 24, 55), False),
         (datetime.datetime(2020, 9, 2, 5, 24, 56), False),
@@ -109,7 +109,7 @@ def test_match(datetime, expected):
 
 
 @pytest.mark.parametrize(
-    "filename, expected",
+    ("filename", "expected"),
     [
         ("log_crawl_time_spider_argument.log", datetime.datetime(2020, 1, 1, 0, 0, 0)),
         ("log_crawl_time_crawl_statistic.log", datetime.datetime(2020, 1, 1, 12, 34, 55)),
@@ -121,7 +121,7 @@ def test_crawl_time(filename, expected):
 
 
 @pytest.mark.parametrize(
-    "filename, expected",
+    ("filename", "expected"),
     [
         ("log_error1.log", True),
         ("log_sample1.log", True),
@@ -135,7 +135,7 @@ def test_is_finished(filename, expected):
 
 
 @pytest.mark.parametrize(
-    "filename, expected",
+    ("filename", "expected"),
     [
         ("log1.log", 0),
         ("log_error1.log", 1),
@@ -146,7 +146,7 @@ def test_item_counts(filename, expected):
 
 
 @pytest.mark.parametrize(
-    "filename, expected",
+    ("filename", "expected"),
     [
         ("log_error1.log", True),
         ("log_sample1.log", False),
