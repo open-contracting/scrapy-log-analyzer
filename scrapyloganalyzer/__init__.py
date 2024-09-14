@@ -10,8 +10,10 @@ from logparser.common import DATETIME_PATTERN, Common
 # Kingfisher Collect logs an INFO message starting with "Spider arguments:".
 SPIDER_ARGUMENTS_SEARCH_STRING = " INFO: Spider arguments: "
 
+MAXIMUM_TIMEDELTA = 3
+
 # Hotfix: https://github.com/my8100/logparser/pull/19
-Common.SIGTERM_PATTERN = re.compile(r"^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?)," % DATETIME_PATTERN)
+Common.SIGTERM_PATTERN = re.compile(r"^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?)," % DATETIME_PATTERN)  # noqa: UP031
 
 
 class ScrapyLogFile:
@@ -38,6 +40,7 @@ class ScrapyLogFile:
                         scrapy_log_file = ScrapyLogFile(entry.path)
                         if scrapy_log_file.match(data_version):
                             return scrapy_log_file
+        return None
 
     def __init__(self, name):
         """
@@ -82,7 +85,7 @@ class ScrapyLogFile:
         :returns: whether the crawl directory's name matches the log file's start time
         :rtype: bool
         """
-        return 0 <= data_version.timestamp() - self.crawl_time.timestamp() < 3
+        return 0 <= data_version.timestamp() - self.crawl_time.timestamp() < MAXIMUM_TIMEDELTA
 
     @property
     def crawl_time(self):
@@ -97,7 +100,7 @@ class ScrapyLogFile:
         if crawl_time:
             return datetime.datetime.strptime(crawl_time, "%Y-%m-%dT%H:%M:%S")
         if "start_time" in self.logparser["crawler_stats"]:
-            return eval(self.logparser["crawler_stats"]["start_time"]).replace(microsecond=0)
+            return eval(self.logparser["crawler_stats"]["start_time"]).replace(microsecond=0)  # noqa: S307
         return datetime.datetime.fromtimestamp(self.logparser["first_log_timestamp"])
 
     def is_finished(self):
@@ -187,7 +190,7 @@ class ScrapyLogFile:
                 if index > -1:
                     # `eval` is used, because the string can contain `datetime.date` and is written by trusted code in
                     # Kingfisher Collect. Otherwise, we can modify the string so that `ast.literal_eval` can be used.
-                    self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])
+                    self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])  # noqa: S307
 
     # Mixed processing
 
