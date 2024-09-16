@@ -17,9 +17,7 @@ Common.SIGTERM_PATTERN = re.compile(r"^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|T
 
 
 class ScrapyLogFile:
-    """
-    A representation of a Scrapy log file.
-    """
+    """A representation of a Scrapy log file."""
 
     @classmethod
     def find(cls, logs_directory, source_id, data_version):
@@ -43,9 +41,7 @@ class ScrapyLogFile:
         return None
 
     def __init__(self, name):
-        """
-        :param str name: the full path to the log file
-        """
+        """:param str name: the full path to the log file"""
         self.name = name
 
         self._logparser = None
@@ -53,9 +49,7 @@ class ScrapyLogFile:
         self._spider_arguments = None
 
     def delete(self):
-        """
-        Delete the log file and any log summary ending in ``.stats``.
-        """
+        """Delete the log file and any log summary ending in ``.stats``."""
         if os.path.isfile(self.name):
             os.remove(self.name)
         summary = f"{self.name}.stats"
