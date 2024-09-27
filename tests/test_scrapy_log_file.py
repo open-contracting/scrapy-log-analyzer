@@ -46,8 +46,8 @@ def test_find(files, expected, tmpdir):
         file.write(content)
 
     if expected:
-        assert ScrapyLogFile.find(tmpdir, "source_id", data_version).name in (
-            directory.join(name) for name in expected
+        assert any(
+            ScrapyLogFile.find(tmpdir, "source_id", data_version).name == directory.join(name) for name in expected
         )
     else:
         assert ScrapyLogFile.find(tmpdir, "source_id", data_version) is None
