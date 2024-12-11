@@ -204,22 +204,15 @@ class ScrapyLogFile:
         :returns: an estimated lower bound of the true error rate
         :rtype: float
         """
-        error_count = self.item_counts["FileError"]
-        if "invalid_json_count" in self.logparser["crawler_stats"]:
-            error_count += self.logparser["crawler_stats"]["invalid_json_count"]
+        error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
         return error_count / (self.item_counts["File"] + error_count)
 
     @property
-    def drop_rate(self):
+    def drop_rate(self) -> float:
         """
-        Return the rate between total items and dropped items.
-
-        :returns: the dropped items rate
-        :rtype: float
+        Return the rate of dropped items to total items.
         """
-        if "item_dropped_count" in self.logparser["crawler_stats"]:
-            return self.logparser["crawler_stats"]["item_dropped_count"] / (
-                self.logparser["crawler_stats"]["item_scraped_count"]
-                + self.logparser["crawler_stats"]["item_dropped_count"]
-            )
+        stats = self.logparser["crawler_stats"]
+        if "item_dropped_count" in stats:
+            return stats["item_dropped_count"] / (stats["item_scraped_count"] + stats["item_dropped_count"])
         return 0.0
