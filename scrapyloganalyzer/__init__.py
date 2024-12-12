@@ -178,11 +178,3 @@ class ScrapyLogFile:
         """
         error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
         return error_count / (self.item_counts["File"] + error_count)
-
-    @property
-    def drop_rate(self) -> float:
-        """Return the rate of dropped items to total items."""
-        stats = self.logparser["crawler_stats"]
-        if "item_dropped_count" in stats:
-            return stats["item_dropped_count"] / (stats["item_scraped_count"] + stats["item_dropped_count"])
-        return 0.0
