@@ -1,11 +1,8 @@
-from __future__ import annotations
-
 import ast
 import datetime
 import os
 import re
 from collections import defaultdict
-from typing import Self
 
 from logparser import parse
 from logparser.common import DATETIME_PATTERN, Common
@@ -23,7 +20,7 @@ class ScrapyLogFile:
     """A representation of a Scrapy log file."""
 
     @classmethod
-    def find(cls, logs_directory, source_id, data_version) -> Self | None:
+    def find(cls, logs_directory, source_id, data_version):
         """
         Find and return the first matching log file for the given crawl.
 
