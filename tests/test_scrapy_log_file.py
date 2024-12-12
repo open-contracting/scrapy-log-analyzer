@@ -155,3 +155,53 @@ def test_item_counts(filename, expected):
 )
 def test_is_complete(filename, expected):
     assert ScrapyLogFile(path(filename)).is_complete() is expected
+
+
+@pytest.mark.parametrize(
+    ("filename", "expected"),
+    [
+        (
+            "log1.log",
+            {
+                "_job": "a38ed0e2ecdc11ea879e0c9d92c523cb",
+                "crawl_time": None,
+                "from_date": None,
+                "keep_collection_open": None,
+                "note": "Started by for the use of Datasketch.",
+                "package_pointer": None,
+                "release_pointer": None,
+                "sample": None,
+                "truncate": None,
+                "until_date": None,
+            },
+        ),
+        (
+            "log_sample1.log",
+            {
+                "crawl_time": None,
+                "from_date": None,
+                "keep_collection_open": None,
+                "note": None,
+                "package_pointer": None,
+                "release_pointer": None,
+                "sample": "true",
+                "truncate": None,
+                "until_date": None,
+            },
+        ),
+    ],
+)
+def test_spider_arguments(filename, expected):
+    assert ScrapyLogFile(path(filename)).spider_arguments == expected
+
+
+@pytest.mark.parametrize(
+    ("filename", "expected"),
+    [
+        ("log1.log", 0),
+        ("log_error1.log", 0.33),
+        ("log_error_invalid_json.log", 0.82),
+    ],
+)
+def test_error_rate(filename, expected):
+    assert round(ScrapyLogFile(path(filename)).error_rate, 2) == expected
