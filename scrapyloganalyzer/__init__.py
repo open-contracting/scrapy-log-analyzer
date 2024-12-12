@@ -121,11 +121,12 @@ class ScrapyLogFile:
             for arg in (
                 "from_date",
                 "until_date",
-                "year",  # not supported in new spiders
-                "start_page",
+                "portal",
                 "publisher",
                 "system",
                 "sample",
+                "path",
+                "qs:",
             )
         )
 
