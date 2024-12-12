@@ -124,7 +124,7 @@ def test_crawl_time(filename, expected):
     ("filename", "expected"),
     [
         ("log_error1.log", True),
-        ("log_sample1.log", True),
+        ("log_sample1.log", False),
         ("log_from_date1.log", True),
         ("log_sigint1.log", False),
         ("log_in_progress1.log", False),
@@ -164,6 +164,7 @@ def test_is_complete(filename, expected):
             "log1.log",
             {
                 "_job": "a38ed0e2ecdc11ea879e0c9d92c523cb",
+                "compile_releases": None,
                 "crawl_time": None,
                 "from_date": None,
                 "keep_collection_open": None,
@@ -178,13 +179,14 @@ def test_is_complete(filename, expected):
         (
             "log_sample1.log",
             {
+                "compile_releases": None,
                 "crawl_time": None,
                 "from_date": None,
                 "keep_collection_open": None,
                 "note": None,
                 "package_pointer": None,
                 "release_pointer": None,
-                "sample": "true",
+                "sample": "1",
                 "truncate": None,
                 "until_date": None,
             },
