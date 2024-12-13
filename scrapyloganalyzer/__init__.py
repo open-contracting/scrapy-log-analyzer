@@ -27,8 +27,6 @@ class ScrapyLogFile:
         :param str logs_directory: Kingfisher Collect's project directory within Scrapyd's logs_dir directory
         :param str source_id: the spider's name
         :param datetime.datetime data_version: the crawl directory's name, parsed as a datetime
-        :returns: the first matching log file
-        :rtype: ocdskingfisherarchive.scrapy.ScrapyLogFile
         """
         source_directory = os.path.join(logs_directory, source_id)
         if os.path.isdir(source_directory):
@@ -40,7 +38,7 @@ class ScrapyLogFile:
                             return scrapy_log_file
         return None
 
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         """:param str name: the full path to the log file"""
         self.name = name
 
@@ -59,11 +57,8 @@ class ScrapyLogFile:
     # Logparser processing
 
     @property
-    def logparser(self):
-        """
-        :returns: the output of `logparser <https://pypi.org/project/logparser/>`__
-        :rtype: dict
-        """
+    def logparser(self) -> dict:
+        """Return the output of `logparser <https://pypi.org/project/logparser/>`__."""
         if self._logparser is None:
             with open(self.name) as f:
                 # `taillines=0` sets the 'tail' key to all lines, so we set it to 1.
@@ -71,24 +66,18 @@ class ScrapyLogFile:
 
         return self._logparser
 
-    def match(self, data_version):
+    def match(self, data_version) -> bool:
         """
         Return whether the crawl directory's name, parsed as a datetime, is less than 3 seconds after the log file's
         start time.
-
-        :returns: whether the crawl directory's name matches the log file's start time
-        :rtype: bool
         """
         return 0 <= data_version.timestamp() - self.crawl_time.timestamp() < MAXIMUM_TIMEDELTA
 
     @property
-    def crawl_time(self):
+    def crawl_time(self) -> datetime.datetime:
         """
         Return the ``crawl_time`` spider argument if set, or the ``start_time`` crawl statistic otherwise. If neither
         is logged, return the time of the first log message.
-
-        :returns: the crawl's start time
-        :rtype: datetime.datetime
         """
         crawl_time = self.spider_arguments.get("crawl_time")
         if crawl_time:
@@ -97,13 +86,10 @@ class ScrapyLogFile:
             return eval(self.logparser["crawler_stats"]["start_time"]).replace(microsecond=0)  # noqa: S307
         return datetime.datetime.fromtimestamp(self.logparser["first_log_timestamp"])
 
-    def is_finished(self):
+    def is_finished(self) -> bool:
         """
         Return whether the log file contains a "Spider closed (finished)" log message or a ``finish_reason`` crawl
         statistic set to "finished".
-
-        :returns: whether the crawl finished cleanly
-        :rtype: bool
         """
         # See https://kingfisher-collect.readthedocs.io/en/latest/logs.html#check-the-reason-for-closing-the-spider
         # logparser's `finish_reason` is "N/A" for an unclean shutdown, because crawl statistics aren't logged.
@@ -112,49 +98,39 @@ class ScrapyLogFile:
     # Line-by-line processing
 
     @property
-    def item_counts(self):
-        """
-        :returns: the number of each type of item, according to the log file
-        :rtype: dict
-        """
+    def item_counts(self) -> dict:
+        """Return the number of each type of item, according to the log file."""
         if self._item_counts is None:
             self._process_line_by_line()
 
         return self._item_counts
 
     @property
-    def spider_arguments(self):
-        """
-        :returns: the spider argument
-        :rtype: dict
-        """
+    def spider_arguments(self) -> dict:
+        """Return the spider's arguments."""
         if self._spider_arguments is None:
             self._process_line_by_line()
 
         return self._spider_arguments
 
-    def is_complete(self):
-        """
-        Return whether the crawl collected a subset of the dataset, according to the log file.
-
-        :returns: whether the crawl collected a subset of the dataset
-        :rtype: bool
-        """
+    def is_complete(self) -> bool:
+        """Return whether the crawl collected a subset of the dataset, according to the log file."""
         # See https://kingfisher-collect.readthedocs.io/en/latest/spiders.html#spider-arguments
         return not any(
             self.spider_arguments.get(arg)
             for arg in (
                 "from_date",
                 "until_date",
-                "year",  # not supported in new spiders
-                "start_page",
+                "portal",
                 "publisher",
                 "system",
                 "sample",
+                "path",
+                "qs:",
             )
         )
 
-    def _process_line_by_line(self):
+    def _process_line_by_line(self) -> None:
         self._item_counts = defaultdict(int)
         self._spider_arguments = {}
 
@@ -189,7 +165,7 @@ class ScrapyLogFile:
     # Mixed processing
 
     @property
-    def error_rate(self):
+    def error_rate(self) -> float:
         """
         Return an estimated lower bound of the true error rate.
 
@@ -200,8 +176,6 @@ class ScrapyLogFile:
         -  If the spider crawls 10 URLs, each returning 99 URLs, each returning OCDS data, and the requests for 5 of
            the 10 fail, then the estimated lower bound is 5 / 500 (1%), though the true error rate is 50%.
         -  Similarly if the spider crawls 10 archive files, each containing 99 OCDS files.
-
-        :returns: an estimated lower bound of the true error rate
-        :rtype: float
         """
-        return self.item_counts["FileError"] / (self.item_counts["File"] + self.item_counts["FileError"])
+        error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
+        return error_count / (self.item_counts["File"] + error_count)

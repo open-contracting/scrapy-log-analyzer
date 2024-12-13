@@ -11,7 +11,7 @@
  'kingfisher_scrapy.extensions.KingfisherPluck',
  'kingfisher_scrapy.extensions.KingfisherFilesStore',
  'kingfisher_scrapy.extensions.KingfisherProcessAPI']
-2020-09-02 05:24:58 [portugal_releases] INFO: Spider arguments: {'sample': None, 'note': 'Started by for the use of Datasketch.', 'from_date': None, 'until_date': None, 'crawl_time': None, 'keep_collection_open': None, 'package_pointer': None, 'release_pointer': None, 'truncate': None, '_job': 'a38ed0e2ecdc11ea879e0c9d92c523cb'}
+2020-09-02 05:24:58 [portugal_releases] INFO: Spider arguments: {'sample': None, 'note': 'Started by for the use of Datasketch.', 'from_date': None, 'until_date': None, 'crawl_time': None, 'keep_collection_open': None, 'package_pointer': None, 'release_pointer': None, 'truncate': None, 'compile_releases': None, '_job': 'a38ed0e2ecdc11ea879e0c9d92c523cb'}
 2020-09-02 05:24:58 [scrapy.middleware] INFO: Enabled downloader middlewares:
 ['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
  'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
@@ -36,19 +36,15 @@
 2020-09-02 05:24:58 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
 2020-09-02 05:25:00 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.base.gov.pt/api/Release/GetReleases?offset=1> (referer: None)
 2020-09-02 05:25:00 [scrapy.core.scraper] DEBUG: Scraped from <200 http://www.base.gov.pt/api/Release/GetReleases?offset=1>
-{'data_type': 'release_package_list',
- 'encoding': 'utf-8',
+{'data_type': 'release_package',
  'file_name': 'offset-1.json',
- 'post_to_api': True,
  'url': 'http://www.base.gov.pt/api/Release/GetReleases?offset=1'}
 2020-09-02 05:39:00 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): process.kingfisher.open-contracting.org:80
 2020-09-02 05:39:00 [urllib3.connectionpool] DEBUG: http://process.kingfisher.open-contracting.org:80 "POST /api/v1/submit/file/ HTTP/1.1" 200 None
 2020-09-02 05:39:12 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.base.gov.pt/api/Release/GetReleases?offset=349> (referer: http://www.base.gov.pt/api/Release/GetReleases?offset=348)
 2020-09-02 05:39:12 [scrapy.core.scraper] DEBUG: Scraped from <200 http://www.base.gov.pt/api/Release/GetReleases?offset=349>
-{'data_type': 'release_package_list',
- 'encoding': 'utf-8',
+{'data_type': 'release_package',
  'file_name': 'offset-349.json',
- 'post_to_api': True,
  'url': 'http://www.base.gov.pt/api/Release/GetReleases?offset=349'}
 2020-09-02 05:39:12 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): process.kingfisher.open-contracting.org:80
 2020-09-02 05:39:13 [urllib3.connectionpool] DEBUG: http://process.kingfisher.open-contracting.org:80 "POST /api/v1/submit/file/ HTTP/1.1" 200 None
