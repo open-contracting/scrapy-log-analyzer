@@ -201,6 +201,7 @@ def test_spider_arguments(filename, expected):
     ("filename", "expected"),
     [
         ("log1.log", 0),
+        ("log_error_no_data.log", 1),
         ("log_error1.log", 0.33),
         ("log_error_invalid_json.log", 0.82),
     ],
