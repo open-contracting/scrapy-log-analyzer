@@ -38,9 +38,13 @@ class ScrapyLogFile:
                             return scrapy_log_file
         return None
 
-    def __init__(self, name) -> None:
-        """:param str name: the full path to the log file"""
+    def __init__(self, name: str, text: str = "") -> None:
+        """
+        :param name: the full path to the log file
+        :param text: the text content of the log file
+        """
         self.name = name
+        self.text = text
 
         self._logparser = None
         self._item_counts = None
@@ -48,11 +52,12 @@ class ScrapyLogFile:
 
     def delete(self):
         """Delete the log file and any log summary ending in ``.stats``."""
-        if os.path.isfile(self.name):
-            os.remove(self.name)
-        summary = f"{self.name}.stats"
-        if os.path.isfile(summary):
-            os.remove(summary)
+        if self.name:
+            if os.path.isfile(self.name):
+                os.remove(self.name)
+            summary = f"{self.name}.stats"
+            if os.path.isfile(summary):
+                os.remove(summary)
 
     # Logparser processing
 
@@ -60,9 +65,8 @@ class ScrapyLogFile:
     def logparser(self) -> dict:
         """Return the output of `logparser <https://pypi.org/project/logparser/>`__."""
         if self._logparser is None:
-            with open(self.name) as f:
-                # `taillines=0` sets the 'tail' key to all lines, so we set it to 1.
-                self._logparser = parse(f.read(), headlines=0, taillines=1)
+            # `taillines=0` sets the 'tail' key to all lines, so we set it to 1.
+            self._logparser = parse(self.read(), headlines=0, taillines=1)
 
         return self._logparser
 
@@ -130,37 +134,53 @@ class ScrapyLogFile:
             )
         )
 
+    def read(self):
+        """Return the text content of the log file."""
+        if self.text:
+            return self.text
+        with open(self.name) as f:
+            return f.read()
+
+    def __iter__(self):
+        """Yield each line of the log file."""
+        if self.text:
+            for line in self.text.splitlines(keepends=True):
+                yield line
+        else:
+            with open(self.name) as f:
+                for line in f:
+                    yield line
+
     def _process_line_by_line(self) -> None:
         self._item_counts = defaultdict(int)
         self._spider_arguments = {}
 
         buf = []
-        with open(self.name) as f:
-            for line in f:
-                if buf or line.startswith("{"):
-                    buf.append(line.rstrip())
-                if buf and buf[-1].endswith("}"):
-                    try:
-                        # Scrapy logs items as dicts. FileError items, representing retrieval errors, are identified by
-                        # an 'errors' key. FileError items use only simple types, so `ast.literal_eval` can be used.
-                        item = ast.literal_eval("".join(buf))
-                        if "errors" in item:
-                            self._item_counts["FileError"] += 1
-                        elif "number" in item:
-                            self._item_counts["FileItem"] += 1
-                        elif "data_type" in item:
-                            self._item_counts["File"] += 1
-                    except ValueError:
-                        # Scrapy dumps stats as a dict, which uses `datetime.datetime` types that can't be parsed with
-                        # `ast.literal_eval`.
-                        pass
-                    buf = []
+        for line in self:
+            if buf or line.startswith("{"):
+                buf.append(line.rstrip())
+            if buf and buf[-1].endswith("}"):
+                try:
+                    # Scrapy logs items as dicts. FileError items, representing retrieval errors, are identified by
+                    # an 'errors' key. FileError items use only simple types, so `ast.literal_eval` can be used.
+                    item = ast.literal_eval("".join(buf))
+                    if "errors" in item:
+                        self._item_counts["FileError"] += 1
+                    elif "number" in item:
+                        self._item_counts["FileItem"] += 1
+                    elif "data_type" in item:
+                        self._item_counts["File"] += 1
+                except ValueError:
+                    # Scrapy dumps stats as a dict, which uses `datetime.datetime` types that can't be parsed with
+                    # `ast.literal_eval`.
+                    pass
+                buf = []
 
-                index = line.find(SPIDER_ARGUMENTS_SEARCH_STRING)
-                if index > -1:
-                    # `eval` is used, because the string can contain `datetime.date` and is written by trusted code in
-                    # Kingfisher Collect. Otherwise, we can modify the string so that `ast.literal_eval` can be used.
-                    self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])  # noqa: S307
+            index = line.find(SPIDER_ARGUMENTS_SEARCH_STRING)
+            if index > -1:
+                # `eval` is used, because the string can contain `datetime.date` and is written by trusted code in
+                # Kingfisher Collect. Otherwise, we can modify the string so that `ast.literal_eval` can be used.
+                self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])  # noqa: S307
 
     # Mixed processing
 
