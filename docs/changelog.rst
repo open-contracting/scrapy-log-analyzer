@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.0.3 (2025-01-30)
+------------------
+
+Fixed
+~~~~~
+
+-  :meth:`scrapyloganalyzer.ScrapyLogFile.error_rate`: Fix division by zero error if only file items are yielded.
+
 0.0.2 (2025-01-29)
 ------------------
 
