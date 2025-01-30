@@ -195,7 +195,8 @@ class ScrapyLogFile:
 
         -  If the spider crawls 10 URLs, each returning 99 URLs, each returning OCDS data, and the requests for 5 of
            the 10 fail, then the estimated lower bound is 5 / 500 (1%), though the true error rate is 50%.
-        -  Similarly if the spider crawls 10 archive files, each containing 99 OCDS files.
+        -  Similarly if the spider crawls 10 archive files, each containing 99 OCDS files, or 10 JSON files each
+           containing 99 release packages.
         """
         error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
-        return error_count / (self.item_counts["File"] + error_count)
+        return error_count / (self.item_counts["File"] + self.item_counts["FileItem"] + error_count)
