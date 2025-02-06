@@ -199,7 +199,7 @@ class ScrapyLogFile:
            containing 99 release packages.
         """
         error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
-        items_count = self.item_counts["File"] + self.item_counts["FileItem"]
-        if items_count:
-            return error_count / (items_count + error_count)
-        return 1
+        try:
+            return error_count / (self.item_counts["File"] + self.item_counts["FileItem"] + error_count)
+        except ZeroDivisionError:
+            return 1
