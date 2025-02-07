@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.0.4 (2025-02-07)
+------------------
+
+Fixed
+~~~~~
+
+-  :meth:`scrapyloganalyzer.ScrapyLogFile.error_rate`: Fix division by zero error for all cases.
+
 0.0.3 (2025-01-30)
 ------------------
 
