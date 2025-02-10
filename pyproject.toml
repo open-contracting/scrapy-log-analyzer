@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrapyloganalyzer"
-version = "0.0.3"
+version = "0.0.4"
 authors = [{name = "Open Contracting Partnership", email = "data@open-contracting.org"}]
 description = "Provides methods to analyze the quality of a Scrapy crawl."
 readme = "README.rst"
