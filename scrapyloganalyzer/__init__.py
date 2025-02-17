@@ -155,15 +155,15 @@ class ScrapyLogFile:
         self._item_counts = defaultdict(int)
         self._spider_arguments = {}
 
-        buf = []
+        buffer = []
         for line in self:
-            if buf or line.startswith("{"):
-                buf.append(line.rstrip())
-            if buf and buf[-1].endswith("}"):
+            if buffer or line.startswith("{"):
+                buffer.append(line.rstrip())
+            if buffer and buffer[-1].endswith("}"):
                 try:
                     # Scrapy logs items as dicts. FileError items, representing retrieval errors, are identified by
                     # an 'errors' key. FileError items use only simple types, so `ast.literal_eval` can be used.
-                    item = ast.literal_eval("".join(buf))
+                    item = ast.literal_eval("".join(buffer))
                     if "errors" in item:
                         self._item_counts["FileError"] += 1
                     elif "number" in item:
@@ -174,7 +174,7 @@ class ScrapyLogFile:
                     # Scrapy dumps stats as a dict, which uses `datetime.datetime` types that can't be parsed with
                     # `ast.literal_eval`.
                     pass
-                buf = []
+                buffer = []
 
             index = line.find(SPIDER_ARGUMENTS_SEARCH_STRING)
             if index > -1:
