@@ -83,7 +83,7 @@
 2020-09-02 05:39:16 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://www.base.gov.pt/api/Release/GetReleases?offset=350> (failed 3 times): 503 Service Unavailable
 2020-09-02 05:39:16 [scrapy.core.engine] DEBUG: Crawled (503) <GET http://www.base.gov.pt/api/Release/GetReleases?offset=350> (referer: http://www.base.gov.pt/api/Release/GetReleases?offset=349)
 2020-09-02 05:39:16 [scrapy.core.scraper] DEBUG: Scraped from <503 http://www.base.gov.pt/api/Release/GetReleases?offset=350>
-2020-09-02 05:39:16 [portugal_releases] ERROR: status=503 message='' request=http://www.base.gov.pt/api/Release/GetReleases?offset=350 file_name=offset-350.json
+2020-09-02 05:39:16 [portugal_releases] ERROR: status=503 message='' request=<GET http://www.base.gov.pt/api/Release/GetReleases?offset=350> file_name=offset-350.json
 2020-09-02 05:39:16 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): process.kingfisher.open-contracting.org:80
 2020-09-02 05:39:16 [urllib3.connectionpool] DEBUG: http://process.kingfisher.open-contracting.org:80 "POST /api/v1/submit/file_errors/ HTTP/1.1" 200 None
 2020-09-02 05:39:16 [scrapy.core.engine] INFO: Closing spider (finished)

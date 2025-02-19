@@ -74,19 +74,19 @@
 {'file_name': 'noticeType-4-dateFrom-12-2024.json', 'url': 'https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=4', 'data_type': 'release_package'}
 2024-12-12 16:19:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=5> (referer: None)
 2024-12-12 16:19:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=5>
-2024-12-12 16:19:51 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=5 file_name=noticeType-5-dateFrom-12-2024.json
+2024-12-12 16:19:51 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=5> file_name=noticeType-5-dateFrom-12-2024.json
 2024-12-12 16:19:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=6> (referer: None)
 2024-12-12 16:19:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=6>
-2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=6 file_name=noticeType-6-dateFrom-12-2024.json
+2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=6> file_name=noticeType-6-dateFrom-12-2024.json
 2024-12-12 16:19:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=7> (referer: None)
 2024-12-12 16:19:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=7>
-2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=7 file_name=noticeType-7-dateFrom-12-2024.json
+2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=7> file_name=noticeType-7-dateFrom-12-2024.json
 2024-12-12 16:19:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=12> (referer: None)
 2024-12-12 16:19:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=12>
-2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=12 file_name=noticeType-12-dateFrom-12-2024.json
+2024-12-12 16:19:52 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=12> file_name=noticeType-12-dateFrom-12-2024.json
 2024-12-12 16:19:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=13> (referer: None)
 2024-12-12 16:19:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=13>
-2024-12-12 16:19:53 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=13 file_name=noticeType-13-dateFrom-12-2024.json
+2024-12-12 16:19:53 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=13> request=<GET >
 2024-12-12 16:19:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=2> (referer: None)
 2024-12-12 16:19:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=2>
 {'file_name': 'noticeType-2-dateFrom-12-2024.json', 'url': 'https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=2', 'data_type': 'release_package'}
@@ -104,16 +104,16 @@
 {'file_name': 'noticeType-21-dateFrom-12-2024.json', 'url': 'https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=21', 'data_type': 'release_package'}
 2024-12-12 16:19:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=22> (referer: None)
 2024-12-12 16:19:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=22>
-2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=22 file_name=noticeType-22-dateFrom-12-2024.json
+2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=22> file_name=noticeType-22-dateFrom-12-2024.json
 2024-12-12 16:19:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=23> (referer: None)
 2024-12-12 16:19:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=23>
-2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=23 file_name=noticeType-23-dateFrom-12-2024.json
+2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=23> file_name=noticeType-23-dateFrom-12-2024.json
 2024-12-12 16:19:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=24> (referer: None)
 2024-12-12 16:19:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=24>
-2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=24 file_name=noticeType-24-dateFrom-12-2024.json
+2024-12-12 16:19:56 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=24> file_name=noticeType-24-dateFrom-12-2024.json
 2024-12-12 16:19:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=25> (referer: None)
 2024-12-12 16:19:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=25>
-2024-12-12 16:19:57 [united_kingdom_scotland] ERROR: status=200 message='' request=https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=25 file_name=noticeType-25-dateFrom-12-2024.json
+2024-12-12 16:19:57 [united_kingdom_scotland] ERROR: status=200 message='' request=<GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=25> file_name=noticeType-25-dateFrom-12-2024.json
 2024-12-12 16:19:58 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=101> (referer: None)
 2024-12-12 16:19:58 [scrapy.core.scraper] DEBUG: Scraped from <200 https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=101>
 {'file_name': 'noticeType-101-dateFrom-12-2024.json', 'url': 'https://api.publiccontractsscotland.gov.uk/v1/Notices?dateFrom=12-2024&outputType=0&noticeType=101', 'data_type': 'release_package'}
