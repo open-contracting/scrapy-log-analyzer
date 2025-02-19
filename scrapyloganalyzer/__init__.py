@@ -161,12 +161,10 @@ class ScrapyLogFile:
                 buffer.append(line.rstrip())
             if buffer and buffer[-1].endswith("}"):
                 try:
-                    # Scrapy logs items as dicts. FileError items, representing retrieval errors, are identified by
-                    # an 'errors' key. FileError items use only simple types, so `ast.literal_eval` can be used.
+                    # Kingfisher Collect's LogFormatter logs scraped items as dicts that use only simple types,
+                    # so `ast.literal_eval` is safe.
                     item = ast.literal_eval("".join(buffer))
-                    if "errors" in item:
-                        self._item_counts["FileError"] += 1
-                    elif "number" in item:
+                    if "number" in item:
                         self._item_counts["FileItem"] += 1
                     elif "data_type" in item:
                         self._item_counts["File"] += 1
@@ -189,7 +187,7 @@ class ScrapyLogFile:
         """
         Return an estimated lower bound of the true error rate.
 
-        Kingfisher Collect is expected to yield at most one FileError item per request leading to a File item, so the
+        Kingfisher Collect is expected to yield at most one ERROR message per request leading to a File item, so the
         true error rate can only be less than this estimated lower bound if Kingfisher Collect breaks this expectation.
         On the other hand, the true error rate can easily be higher than the estimated lower bound; for example:
 
@@ -198,7 +196,10 @@ class ScrapyLogFile:
         -  Similarly if the spider crawls 10 archive files, each containing 99 OCDS files, or 10 JSON files each
            containing 99 release packages.
         """
-        error_count = self.item_counts["FileError"] + self.logparser["crawler_stats"].get("invalid_json_count", 0)
+        # Kingfisher Collect logs retrieval errors as ERROR messages.
+        error_count = self.logparser["log_categories"]["error_logs"]["count"] + self.logparser["crawler_stats"].get(
+            "invalid_json_count", 0
+        )
         try:
             return error_count / (self.item_counts["File"] + self.item_counts["FileItem"] + error_count)
         except ZeroDivisionError:

@@ -74,8 +74,6 @@
 2024-12-05 13:43:50 [scrapy.core.engine] DEBUG: Crawled (500) <GET https://www.ppra.org.pk/api/index.php/api/release> (referer: None)
 2024-12-05 13:43:50 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): o288126.ingest.sentry.io:443
 2024-12-05 13:43:50 [urllib3.connectionpool] DEBUG: https://o288126.ingest.sentry.io:443 "POST /api/5287294/envelope/ HTTP/1.1" 200 None
-2024-12-05 13:43:50 [scrapy.core.scraper] WARNING: Dropped: Sample: Item is a FileError, not a File or FileItem
-{'file_name': 'releases.json', 'url': 'https://www.ppra.org.pk/api/index.php/api/release', 'errors': {'http_code': 500}}
 2024-12-05 13:43:50 [scrapy.core.engine] INFO: Closing spider (finished)
 2024-12-05 13:43:50 [pakistan_ppra_bulk] INFO: +---------------- DATA DIRECTORY ----------------+
 2024-12-05 13:43:50 [pakistan_ppra_bulk] INFO: |                                                |
