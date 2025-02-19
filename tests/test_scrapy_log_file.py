@@ -135,14 +135,17 @@ def test_is_finished(filename, expected):
 
 
 @pytest.mark.parametrize(
-    ("filename", "expected"),
+    ("filename", "files", "file_items"),
     [
-        ("log1.log", 0),
-        ("log_error1.log", 1),
+        ("log1.log", 2, 0),
+        ("log_error1.log", 2, 0),
+        ("log_file_items.log", 0, 3),
     ],
 )
-def test_item_counts(filename, expected):
-    assert ScrapyLogFile(path(filename)).item_counts["FileError"] == expected
+def test_item_counts(filename, files, file_items):
+    item_counts = ScrapyLogFile(path(filename)).item_counts
+    assert item_counts["File"] == files
+    assert item_counts["FileItem"] == file_items
 
 
 @pytest.mark.parametrize(
