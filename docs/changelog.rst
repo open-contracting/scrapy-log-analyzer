@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.0.5 (2025-02-20)
+------------------
+
+Changd
+~~~~~~
+
+Kingfisher Collect writes ERROR-level messages instead of yielding FileError items.
+
 0.0.4 (2025-02-07)
 ------------------
 
