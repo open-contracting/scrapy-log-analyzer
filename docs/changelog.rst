@@ -4,14 +4,17 @@ Changelog
 Unreleased
 ----------
 
+Changed
+~~~~~~~
+
 -  Add support for Python 3.13.
 -  Drop support for Python 3.9.
 
 0.0.5 (2025-02-20)
 ------------------
 
-Changd
-~~~~~~
+Changed
+~~~~~~~
 
 Kingfisher Collect writes ERROR-level messages instead of yielding FileError items.
 
