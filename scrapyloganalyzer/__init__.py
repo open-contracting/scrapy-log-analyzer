@@ -1,19 +1,14 @@
 import ast
 import datetime
 import os
-import re
 from collections import defaultdict
 
 from logparser import parse
-from logparser.common import DATETIME_PATTERN, Common
 
 # Kingfisher Collect logs an INFO message starting with "Spider arguments:".
 SPIDER_ARGUMENTS_SEARCH_STRING = " INFO: Spider arguments: "
 
 MAXIMUM_TIMEDELTA = 3
-
-# Hotfix: https://github.com/my8100/logparser/pull/19
-Common.SIGTERM_PATTERN = re.compile(r"^%s[ ].+?:[ ](Received[ ]SIG(?:BREAK|INT|TERM)([ ]twice)?)," % DATETIME_PATTERN)  # noqa: UP031
 
 
 class ScrapyLogFile:
