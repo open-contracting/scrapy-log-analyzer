@@ -4,10 +4,14 @@ Changelog
 Unreleased
 ----------
 
-Changed
+Added
+~~~~~
+
+-  Add support for Python 3.13, 3.14.
+
+Removed
 ~~~~~~~
 
--  Add support for Python 3.13.
 -  Drop support for Python 3.9.
 
 0.0.5 (2025-02-20)
