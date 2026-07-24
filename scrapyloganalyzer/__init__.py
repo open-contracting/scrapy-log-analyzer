@@ -1,7 +1,7 @@
 import ast
 import datetime
-import os
 from collections import defaultdict
+from pathlib import Path
 
 from logparser import parse
 
@@ -23,14 +23,13 @@ class ScrapyLogFile:
         :param str source_id: the spider's name
         :param datetime.datetime data_version: the crawl directory's name, parsed as a datetime
         """
-        source_directory = os.path.join(logs_directory, source_id)
-        if os.path.isdir(source_directory):
-            with os.scandir(source_directory) as it:
-                for entry in it:
-                    if entry.name.endswith(".log"):
-                        scrapy_log_file = ScrapyLogFile(entry.path)
-                        if scrapy_log_file.match(data_version):
-                            return scrapy_log_file
+        source_directory = Path(logs_directory) / source_id
+        if source_directory.is_dir():
+            for entry in source_directory.iterdir():
+                if entry.name.endswith(".log"):
+                    scrapy_log_file = ScrapyLogFile(entry)
+                    if scrapy_log_file.match(data_version):
+                        return scrapy_log_file
         return None
 
     def __init__(self, name: str, text: str = "") -> None:
@@ -48,11 +47,12 @@ class ScrapyLogFile:
     def delete(self):
         """Delete the log file and any log summary ending in ``.stats``."""
         if self.name:
-            if os.path.isfile(self.name):
-                os.remove(self.name)
-            summary = f"{self.name}.stats"
-            if os.path.isfile(summary):
-                os.remove(summary)
+            path = Path(self.name)
+            if path.is_file():
+                path.unlink()
+            summary = path.with_name(f"{path.name}.stats")
+            if summary.is_file():
+                summary.unlink()
 
     # Logparser processing
 
@@ -133,7 +133,7 @@ class ScrapyLogFile:
         """Return the text content of the log file."""
         if self.text:
             return self.text
-        with open(self.name) as f:
+        with Path(self.name).open() as f:
             return f.read()
 
     def __iter__(self):
@@ -142,7 +142,7 @@ class ScrapyLogFile:
             for line in self.text.splitlines(keepends=True):
                 yield line
         else:
-            with open(self.name) as f:
+            with Path(self.name).open() as f:
                 for line in f:
                     yield line
 

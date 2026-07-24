@@ -1,5 +1,5 @@
-import os.path
+from pathlib import Path
 
 
 def path(filename):
-    return os.path.join("tests", "fixtures", filename)
+    return Path("tests") / "fixtures" / filename
