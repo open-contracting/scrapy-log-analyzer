@@ -1,8 +1,14 @@
 Changelog
 =========
 
-Unreleased
-----------
+0.0.6 (2026-09-04)
+------------------
+
+Fixed
+~~~~~
+
+-  :meth:`scrapyloganalyzer.ScrapyLogFile.item_counts`: Don't raise a ``SyntaxError`` if a logged dict contains a
+   value that isn't a Python literal, like a class.
 
 Added
 ~~~~~

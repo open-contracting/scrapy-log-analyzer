@@ -15,7 +15,7 @@ project = "Scrapy Log Analyzer"
 copyright = "2022, Open Contracting Partnership"
 author = "Open Contracting Partnership"
 
-version = "0.0.5"
+version = "0.0.6"
 release = version
 
 # -- General configuration ---------------------------------------------------

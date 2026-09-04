@@ -163,9 +163,9 @@ class ScrapyLogFile:
                         self._item_counts["FileItem"] += 1
                     elif "data_type" in item:
                         self._item_counts["File"] += 1
-                except ValueError:
-                    # Scrapy dumps stats as a dict, which uses `datetime.datetime` types that can't be parsed with
-                    # `ast.literal_eval`.
+                except (SyntaxError, ValueError):
+                    # Scrapy dumps stats and settings as dicts, whose values can be non-literals like
+                    # `datetime.datetime(...)` and `<class '...'>`, which `ast.literal_eval` can't parse.
                     pass
                 buffer = []
 

@@ -26,7 +26,7 @@
  'DOWNLOAD_TIMEOUT': 360,
  'DOWNLOAD_WARNSIZE': 0,
  'HTTPPROXY_ENABLED': False,
- 'LOG_FORMATTER': 'kingfisher_scrapy.log_formatter.LogFormatter',
+ 'LOG_FORMATTER': <class 'kingfisher_scrapy.log_formatter.LogFormatter'>,
  'NEWSPIDER_MODULE': 'kingfisher_scrapy.spiders',
  'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
  'SPIDER_MODULES': ['kingfisher_scrapy.spiders'],
