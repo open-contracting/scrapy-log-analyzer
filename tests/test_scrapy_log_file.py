@@ -1,11 +1,11 @@
-import datetime
+import datetime as dt
 
 import pytest
 
 from scrapyloganalyzer import ScrapyLogFile
 from tests import path
 
-data_version = datetime.datetime(2020, 1, 2, 3, 4, 5)
+data_version = dt.datetime(2020, 1, 2, 3, 4, 5)
 message = "2020-01-02 03:04:05 [scrapy.utils.log] INFO message"
 
 
@@ -95,13 +95,13 @@ def test_delete(filenames, tmpdir):
 @pytest.mark.parametrize(
     ("datetime", "expected"),
     [
-        (datetime.datetime(2020, 9, 2, 5, 24, 55), False),
-        (datetime.datetime(2020, 9, 2, 5, 24, 56), False),
-        (datetime.datetime(2020, 9, 2, 5, 24, 57), False),
-        (datetime.datetime(2020, 9, 2, 5, 24, 58), True),  # exact
-        (datetime.datetime(2020, 9, 2, 5, 24, 59), True),
-        (datetime.datetime(2020, 9, 2, 5, 25, 0), True),
-        (datetime.datetime(2020, 9, 2, 5, 25, 1), False),
+        (dt.datetime(2020, 9, 2, 5, 24, 55), False),
+        (dt.datetime(2020, 9, 2, 5, 24, 56), False),
+        (dt.datetime(2020, 9, 2, 5, 24, 57), False),
+        (dt.datetime(2020, 9, 2, 5, 24, 58), True),  # exact
+        (dt.datetime(2020, 9, 2, 5, 24, 59), True),
+        (dt.datetime(2020, 9, 2, 5, 25, 0), True),
+        (dt.datetime(2020, 9, 2, 5, 25, 1), False),
     ],
 )
 def test_match(datetime, expected):
@@ -111,9 +111,9 @@ def test_match(datetime, expected):
 @pytest.mark.parametrize(
     ("filename", "expected"),
     [
-        ("log_crawl_time_spider_argument.log", datetime.datetime(2020, 1, 1, 0, 0, 0)),
-        ("log_crawl_time_crawl_statistic.log", datetime.datetime(2020, 1, 1, 12, 34, 55)),
-        ("log_crawl_time_log_message.log", datetime.datetime(2020, 1, 1, 12, 34, 56)),
+        ("log_crawl_time_spider_argument.log", dt.datetime(2020, 1, 1, 0, 0, 0)),
+        ("log_crawl_time_crawl_statistic.log", dt.datetime(2020, 1, 1, 12, 34, 55)),
+        ("log_crawl_time_log_message.log", dt.datetime(2020, 1, 1, 12, 34, 56)),
     ],
 )
 def test_crawl_time(filename, expected):

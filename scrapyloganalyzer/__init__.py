@@ -1,5 +1,5 @@
 import ast
-import datetime
+import datetime as dt
 from collections import defaultdict
 from pathlib import Path
 
@@ -73,17 +73,17 @@ class ScrapyLogFile:
         return 0 <= data_version.timestamp() - self.crawl_time.timestamp() < MAXIMUM_TIMEDELTA
 
     @property
-    def crawl_time(self) -> datetime.datetime:
+    def crawl_time(self) -> dt.datetime:
         """
         Return the ``crawl_time`` spider argument if set, or the ``start_time`` crawl statistic otherwise. If neither
         is logged, return the time of the first log message.
         """
         crawl_time = self.spider_arguments.get("crawl_time")
         if crawl_time:
-            return datetime.datetime.strptime(crawl_time, "%Y-%m-%dT%H:%M:%S")
+            return dt.datetime.strptime(crawl_time, "%Y-%m-%dT%H:%M:%S")
         if "start_time" in self.logparser["crawler_stats"]:
-            return eval(self.logparser["crawler_stats"]["start_time"]).replace(microsecond=0)  # noqa: S307
-        return datetime.datetime.fromtimestamp(self.logparser["first_log_timestamp"])
+            return eval(self.logparser["crawler_stats"]["start_time"], {"datetime": dt}).replace(microsecond=0)  # noqa: S307
+        return dt.datetime.fromtimestamp(self.logparser["first_log_timestamp"])
 
     def is_finished(self) -> bool:
         """
@@ -173,7 +173,7 @@ class ScrapyLogFile:
             if index > -1:
                 # `eval` is used, because the string can contain `datetime.date` and is written by trusted code in
                 # Kingfisher Collect. Otherwise, we can modify the string so that `ast.literal_eval` can be used.
-                self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :])  # noqa: S307
+                self._spider_arguments = eval(line[index + len(SPIDER_ARGUMENTS_SEARCH_STRING) :], {"datetime": dt})  # noqa: S307
 
     # Mixed processing
 
